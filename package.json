@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "nodemon --delay 5 --watch server ./server/server.js --exec babel-node",
+    "start": "nodemon --delay 1 --watch server ./server/server.js --exec babel-node",
     "migrate": "sequelize db:migrate",
-    "migrate:undo": "sequelize db:migrate:undo:all"
+    "migrate:redo": "sequelize db:migrate:undo:all && sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,11 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0"

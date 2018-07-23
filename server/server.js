@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import passport from 'passport';
 import routes from './routes/index';
 
 dotenv.config();
@@ -8,6 +9,9 @@ dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(bodyParser.urlencoded({
   extended: true,
