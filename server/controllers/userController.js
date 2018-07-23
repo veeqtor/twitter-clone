@@ -22,8 +22,7 @@ class UserController {
       },
     }).spread((user, created) => { // Necessary to find out if the user was created or not
       if (created) {
-        const payload = user.get({ plain: true });
-        delete payload.password;
+        const payload = { id: user.id };
         const token = encryptions.tokenize(payload, process.env.SECRET, '1h');
         res.status(200).json({
           status: 'Success',
@@ -46,7 +45,7 @@ class UserController {
   */
   static signIn(req, res) {
     const { email, password } = req.body;
-    Users.findOne({ where: { email } }).then((user) => {
+    Users.findOne({ where: { email }, attributes: ['id', 'password'] }).then((user) => {
       if (user && encryptions.compare(password, user.dataValues.password)) {
         const payload = user.dataValues;
         delete payload.password;
@@ -54,13 +53,28 @@ class UserController {
         res.status(200).json({
           status: 'success',
           data: {
-            message: `Hi, ${payload.first_name}, You have successfully logged in`,
+            message: 'You have successfully logged in',
             token,
           },
         });
       } else {
         errors.error401(res);
       }
+    });
+  }
+
+  /**
+   * Profile Function
+   * @param {*} req
+   * @param {*} res
+   * @returns {User object}
+   */
+  static profile(req, res) {
+    res.status(200).json({
+      status: 'success',
+      data: {
+        profile: req.user,
+      },
     });
   }
 }
