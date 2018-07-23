@@ -1,21 +1,34 @@
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     first_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
+    },
+    social_id: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    social_token: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     gender: {
       type: DataTypes.STRING,
@@ -30,8 +43,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
   }, {});
-  // Users.associate = function(models) {
-  //   // associations can be defined here
-  // };
+
+  Users.associate = function (models) {
+    // Users.hasMany(models.Social);
+  };
   return Users;
 };
