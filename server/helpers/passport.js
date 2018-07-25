@@ -3,7 +3,6 @@ import bearer from 'passport-http-bearer';
 import facebook from 'passport-facebook';
 import google from 'passport-google-oauth';
 import { Users } from '../models';
-// import { Social } from '../models';
 import encryptions from './encryptions';
 
 const BearerStrategy = bearer.Strategy;
